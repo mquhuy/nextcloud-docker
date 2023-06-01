@@ -8,7 +8,6 @@ services:
     volumes:
       - db:/var/lib/mysql:Z
     environment:
-      - MYSQL_ROOT_PASSWORD=
       - MARIADB_AUTO_UPGRADE=1
       - MARIADB_DISABLE_UPGRADE_BACKUP=1
     env_file:
@@ -22,12 +21,13 @@ services:
     image: nextcloud:apache
     restart: always
     ports:
-      - 127.0.0.1:8080:80
+      - 127.0.0.1:8081:80
     volumes:
       - nextcloud:/var/www/html:z
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+      - OVERWRITEPROTOCOL=https
     env_file:
       - db.env
     depends_on:
